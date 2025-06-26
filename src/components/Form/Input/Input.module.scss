@@ -1,0 +1,39 @@
+.inputWrapper {
+  position: relative;
+  width: 100%;
+
+  .togglePassword {
+    position: absolute;
+    top: 50%;
+    right: 0.75rem;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    color: #666;
+
+    &:hover {
+      color: #000;
+    }
+  }
+}
+
+.input {
+  width: 100%;
+  padding: 0.5rem 2.5rem 0.5rem 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+
+  &:focus {
+    border-color: $primary-color;
+    outline: none;
+  }
+
+  &.error {
+    border-color: red;
+    background-color: oklch(97% 0.02 30);
+  }
+}
