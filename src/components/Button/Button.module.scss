@@ -11,6 +11,9 @@
   background: vars.$primary-color;
   color: white;
   transition: all 0.3ms ease-in-out;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 
   &:hover {
     opacity: 0.8;

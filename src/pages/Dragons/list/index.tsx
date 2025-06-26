@@ -1,10 +1,12 @@
 import Input from "@/components/Form/Input";
 
-import styles from "./Dragons.module.scss";
-import { useQuery } from "@tanstack/react-query";
-import { getAllDragons } from "@/services/dragons";
+import Button from "@/components/Button";
 import Row from "@/components/Dragons/List/Row";
+import { getAllDragons } from "@/services/dragons";
+import { useQuery } from "@tanstack/react-query";
+import { Plus } from "lucide-react";
 import { useMemo } from "react";
+import styles from "./Dragons.module.scss";
 
 const Dragons = () => {
   const { data: dragons } = useQuery({
@@ -26,9 +28,16 @@ const Dragons = () => {
           <span>Explore os dragões mais poderosos do mundo</span>
         </div>
 
-        <form>
-          <Input placeholder="Busque pelo nome..." variant="search" />
-        </form>
+        <div className={styles.actions}>
+          <div>
+            <Input placeholder="Busque pelo nome..." variant="search" />
+          </div>
+
+          <Button>
+            <Plus size={18} />
+            Adicionar Dragão
+          </Button>
+        </div>
       </div>
 
       <div className={styles.list}>

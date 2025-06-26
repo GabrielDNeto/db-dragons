@@ -10,8 +10,8 @@
   .pageHeader {
     width: 100%;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 1.5rem;
 
     .title {
       h1 {
@@ -26,6 +26,13 @@
         line-height: 1.25rem;
         color: vars.$text-gray;
       }
+    }
+
+    .actions {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
   }
 
