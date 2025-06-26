@@ -2,6 +2,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { RouterProvider } from "react-router";
 import { ROUTER } from "../../config/router";
 import { AuthContextProvider } from "@/contexts/auth";
+import React from "react";
+import Suspense from "@/components/Suspense";
 
 function App() {
   const queryClient = new QueryClient();
@@ -10,7 +12,9 @@ function App() {
     <>
       <QueryClientProvider client={queryClient}>
         <AuthContextProvider>
-          <RouterProvider router={ROUTER} />
+          <React.Suspense fallback={<Suspense />}>
+            <RouterProvider router={ROUTER} />
+          </React.Suspense>
         </AuthContextProvider>
       </QueryClientProvider>
     </>

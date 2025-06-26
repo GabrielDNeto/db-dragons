@@ -1,6 +1,6 @@
 import clsx from "clsx";
 
-import logoIcon from "@/assets/icons/dragon-icon.png";
+import logoIcon from "@/assets/icons/dragon-horizontal.png";
 import { APP_ROUTES } from "@/config/router/routes";
 
 import { Link } from "react-router";

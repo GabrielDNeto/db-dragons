@@ -1,10 +1,11 @@
+import { lazy } from "react";
 import { createBrowserRouter, Navigate } from "react-router";
 import { APP_ROUTES } from "./routes";
 
-import Signin from "@/pages/Signin";
 import RouterGuard from "@/components/RouterGuard";
-import Dragons from "@/pages/Dragons";
 import DefaultTemplate from "@/components/templates/Default";
+const Signin = lazy(() => import("@/pages/Signin"));
+const Dragons = lazy(() => import("@/pages/Dragons/list"));
 
 export const ROUTER = createBrowserRouter([
   {

@@ -13,11 +13,19 @@
     border: none;
     cursor: pointer;
     font-size: 1rem;
-    color: #666;
+    color: vars.$text-gray;
 
     &:hover {
-      color: #000;
+      color: #222;
     }
+  }
+
+  .icon {
+    position: absolute;
+    top: 50%;
+    right: 0.75rem;
+    transform: translateY(-50%);
+    color: vars.$text-gray;
   }
 }
 

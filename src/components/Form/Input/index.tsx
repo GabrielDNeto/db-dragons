@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { Eye, EyeClosed } from "lucide-react";
+import { Eye, EyeClosed, Search } from "lucide-react";
 
 import styles from "./Input.module.scss";
 import clsx from "clsx";
 
 type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
-  variant?: "text" | "password";
+  variant?: "text" | "password" | "search";
   hasError?: boolean;
 };
 
@@ -19,6 +19,22 @@ const Input = ({
 
   const type =
     variant === "password" ? (showPassword ? "text" : "password") : variant;
+
+  if (variant === "search") {
+    return (
+      <div className={clsx(styles.inputWrapper, className)}>
+        <input
+          type={type}
+          className={clsx(styles.input, {
+            [styles.error]: hasError,
+          })}
+          {...rest}
+        />
+
+        <Search size={16} className={styles.icon} />
+      </div>
+    );
+  }
 
   if (variant === "password") {
     return (
@@ -35,15 +51,13 @@ const Input = ({
           {...rest}
         />
 
-        {variant === "password" && (
-          <button
-            type="button"
-            className={styles.togglePassword}
-            onClick={() => setShowPassword((prev) => !prev)}
-          >
-            {showPassword ? <EyeClosed size={16} /> : <Eye size={16} />}
-          </button>
-        )}
+        <button
+          type="button"
+          className={styles.togglePassword}
+          onClick={() => setShowPassword((prev) => !prev)}
+        >
+          {showPassword ? <EyeClosed size={16} /> : <Eye size={16} />}
+        </button>
       </div>
     );
   }

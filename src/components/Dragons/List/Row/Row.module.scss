@@ -1,0 +1,53 @@
+@use "@/styles/variables" as vars;
+
+.row {
+  width: 100%;
+  background-color: white;
+  border-radius: 0.5rem;
+  padding: 0.875rem 1.25rem;
+  display: flex;
+  align-items: center;
+
+  .info {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+
+    .profile {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      img {
+        width: 4rem;
+        height: 4rem;
+        object-fit: cover;
+        border-radius: 0.25rem;
+      }
+
+      h3 {
+        font-size: 1rem;
+        line-height: 1.25rem;
+      }
+    }
+
+    span {
+      font-size: 0.875rem;
+      line-height: 1.25rem;
+    }
+
+    span.history {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      max-width: 80%;
+    }
+  }
+
+  .actions {
+    min-width: 2.625rem;
+  }
+}

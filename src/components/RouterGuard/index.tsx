@@ -10,7 +10,6 @@ const RouterGuard = () => {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    console.log("authStatus", authStatus);
     if (authStatus === "unauthorized") {
       navigate(APP_ROUTES.public.signin);
     } else if (
