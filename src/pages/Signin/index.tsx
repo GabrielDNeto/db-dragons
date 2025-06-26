@@ -8,6 +8,9 @@ import Input from "@/components/Form/Input";
 import bgDragon from "@/assets/imgs/signin-bg.jpg";
 
 import styles from "./Signin.module.scss";
+import { useMutation } from "@tanstack/react-query";
+import { signin } from "@/services/auth";
+import { useAuth } from "@/hooks/useAuth";
 
 const signinSchema = z.object({
   email: z.string().email("Insira um e-mail válido"),
@@ -17,6 +20,8 @@ const signinSchema = z.object({
 type SigninData = z.infer<typeof signinSchema>;
 
 const Signin = () => {
+  const { handleAuthenticate } = useAuth();
+
   const {
     register,
     formState: { errors },
@@ -29,8 +34,15 @@ const Signin = () => {
     },
   });
 
-  const signin = (data: SigninData) => {
-    console.log("data", data);
+  const signinMutation = useMutation({
+    mutationFn: signin,
+    onSuccess: (data) => {
+      handleAuthenticate(data.access_token);
+    },
+  });
+
+  const handleSignin = (data: SigninData) => {
+    signinMutation.mutateAsync(data);
   };
 
   return (
@@ -38,10 +50,10 @@ const Signin = () => {
       <div className={styles.formWrapper}>
         <div className={styles.title}>
           <h1>Entrar</h1>
-          <span>Acesse e torne-se um mestre dos dragões</span>
+          <span>Acesse e torne-se mestre dos dragões</span>
         </div>
 
-        <form onSubmit={handleSubmit(signin)}>
+        <form onSubmit={handleSubmit(handleSignin)}>
           <div>
             <Input
               placeholder="Seu e-mail"
