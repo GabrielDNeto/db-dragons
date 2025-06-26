@@ -1,3 +1,5 @@
+@use "@/styles/variables" as vars;
+
 .button {
   border: none;
   outline: none;
@@ -6,7 +8,7 @@
   border-radius: 0.25rem;
   font-size: 0.875rem;
   line-height: 1.25rem;
-  background: $primary-color;
+  background: vars.$primary-color;
   color: white;
   transition: all 0.3ms ease-in-out;
 
