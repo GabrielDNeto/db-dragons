@@ -46,6 +46,15 @@
       overflow: hidden;
       max-width: 80%;
     }
+
+    @media (max-width: vars.$breakpoint-md) {
+      display: block;
+
+      span,
+      span.history {
+        display: none;
+      }
+    }
   }
 
   .actions {

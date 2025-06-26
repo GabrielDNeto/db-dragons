@@ -34,6 +34,18 @@
       justify-content: space-between;
       align-items: center;
     }
+
+    @media (max-width: 32rem) {
+      .actions {
+        flex-direction: column;
+        gap: 1rem;
+
+        div,
+        button {
+          width: 100%;
+        }
+      }
+    }
   }
 
   .list {
@@ -54,6 +66,16 @@
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         align-items: center;
+      }
+
+      @media (max-width: vars.$breakpoint-md) {
+        & > div {
+          display: block;
+
+          & span:not(:first-child) {
+            display: none;
+          }
+        }
       }
     }
 
