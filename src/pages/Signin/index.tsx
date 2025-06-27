@@ -68,20 +68,28 @@ const Signin = () => {
 
           <form onSubmit={handleSubmit(handleSignin)}>
             <div>
-              <Input
-                placeholder="Seu e-mail"
-                hasError={!!errors.email}
-                {...register("email", { required: true })}
-              />
+              <div>
+                <label htmlFor="email">Seu e-mail</label>
+                <Input
+                  id="email"
+                  placeholder="Ex.: jhondoe@email.com"
+                  hasError={!!errors.email}
+                  {...register("email", { required: true })}
+                />
+              </div>
               {errors.email?.message && <span>{errors.email?.message}</span>}
             </div>
             <div>
-              <Input
-                variant="password"
-                placeholder="Sua senha"
-                hasError={!!errors.password}
-                {...register("password", { required: true })}
-              />
+              <div>
+                <label htmlFor="password">Sua senha</label>
+                <Input
+                  id="password"
+                  variant="password"
+                  placeholder="Digite sua senha"
+                  hasError={!!errors.password}
+                  {...register("password", { required: true })}
+                />
+              </div>
               {errors.password?.message && (
                 <span>{errors.password?.message}</span>
               )}

@@ -148,13 +148,18 @@ const CreateOrEditDragon = () => {
 
             <div>
               <label htmlFor="imageUrl">URL Imagem</label>
-              <Input placeholder="URL Imagem" {...register("imageUrl")} />
+              <Input
+                id="imageUrl"
+                placeholder="URL Imagem"
+                {...register("imageUrl")}
+              />
             </div>
 
             <div>
               <div>
                 <label htmlFor="name">Nome do Dragão</label>
                 <Input
+                  id="name"
                   placeholder="Ex.: Dracarys"
                   hasError={!!errors.name}
                   {...register("name", { required: true })}
@@ -167,6 +172,7 @@ const CreateOrEditDragon = () => {
               <div>
                 <label htmlFor="type">Tipo</label>
                 <Input
+                  id="type"
                   placeholder="Ex.: Aquático"
                   hasError={!!errors.type}
                   {...register("type", { required: true })}
