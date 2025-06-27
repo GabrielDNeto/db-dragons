@@ -1,0 +1,16 @@
+@use "@/styles/variables" as vars;
+
+.textarea {
+  width: 100%;
+  padding: 0.5rem 2.5rem 0.5rem 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  resize: vertical;
+
+  &:focus {
+    border-color: vars.$primary-color;
+    outline: none;
+  }
+}

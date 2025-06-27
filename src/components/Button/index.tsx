@@ -1,7 +1,18 @@
+import clsx from "clsx";
 import styles from "./Button.module.scss";
 
-const Button = (props: React.ButtonHTMLAttributes<HTMLButtonElement>) => {
-  return <button className={styles.button} {...props}></button>;
+const Button = ({
+  className,
+  disabled,
+  ...props
+}: React.ButtonHTMLAttributes<HTMLButtonElement>) => {
+  return (
+    <button
+      className={clsx(styles.button, className)}
+      disabled={disabled}
+      {...props}
+    ></button>
+  );
 };
 
 export default Button;

@@ -7,8 +7,12 @@ import { useQuery } from "@tanstack/react-query";
 import { Plus } from "lucide-react";
 import { useMemo } from "react";
 import styles from "./Dragons.module.scss";
+import { useNavigate } from "react-router";
+import { APP_ROUTES } from "@/config/router/routes";
 
 const Dragons = () => {
+  const navigate = useNavigate();
+
   const { data: dragons } = useQuery({
     queryKey: ["dragons"],
     queryFn: getAllDragons,
@@ -33,7 +37,9 @@ const Dragons = () => {
             <Input placeholder="Busque pelo nome..." variant="search" />
           </div>
 
-          <Button>
+          <Button
+            onClick={() => navigate(`${APP_ROUTES.private.dragons}/create`)}
+          >
             <Plus size={18} />
             Adicionar Dragão
           </Button>
