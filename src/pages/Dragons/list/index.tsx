@@ -9,11 +9,12 @@ import { useMemo } from "react";
 import styles from "./Dragons.module.scss";
 import { useNavigate } from "react-router";
 import { APP_ROUTES } from "@/config/router/routes";
+import RowSkeleton from "@/components/Dragons/Sekeletons/List/Row";
 
 const Dragons = () => {
   const navigate = useNavigate();
 
-  const { data: dragons } = useQuery({
+  const { data: dragons, isLoading } = useQuery({
     queryKey: ["dragons"],
     queryFn: getAllDragons,
     refetchOnWindowFocus: false,
@@ -56,9 +57,11 @@ const Dragons = () => {
           <span>Ações</span>
         </div>
         <div className={styles.listContent}>
-          {dragonsOrderByAsc.map((dragon) => (
-            <Row key={dragon.id} dragon={dragon} />
-          ))}
+          {isLoading
+            ? Array.from({ length: 5 }).map((_, i) => <RowSkeleton key={i} />)
+            : dragonsOrderByAsc.map((dragon) => (
+                <Row key={dragon.id} dragon={dragon} />
+              ))}
         </div>
       </div>
     </div>
