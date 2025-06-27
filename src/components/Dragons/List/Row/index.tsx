@@ -11,6 +11,7 @@ import { deleteDragon } from "@/services/dragons";
 import { useNavigate } from "react-router";
 import { APP_ROUTES } from "@/config/router/routes";
 import RowSkeleton from "../../Sekeletons/List/Row";
+import { toast } from "sonner";
 
 const Row = ({ dragon }: { dragon: Dragon }) => {
   const queryClient = useQueryClient();
@@ -35,7 +36,13 @@ const Row = ({ dragon }: { dragon: Dragon }) => {
 
   const deleteDragonMutation = useMutation({
     mutationFn: deleteDragon,
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["dragons"] }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["dragons"] });
+      toast.success("Dragão removido com sucesso!");
+    },
+    onError: () => {
+      toast.error("Erro ao remover dragão!");
+    },
   });
 
   const dropdownOptions = [

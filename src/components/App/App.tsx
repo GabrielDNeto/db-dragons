@@ -4,6 +4,7 @@ import { ROUTER } from "../../config/router";
 import { AuthContextProvider } from "@/contexts/auth";
 import React from "react";
 import Suspense from "@/components/Suspense";
+import { Toaster } from "sonner";
 
 function App() {
   const queryClient = new QueryClient();
@@ -13,6 +14,7 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <AuthContextProvider>
           <React.Suspense fallback={<Suspense />}>
+            <Toaster position="top-center" richColors />
             <RouterProvider router={ROUTER} />
           </React.Suspense>
         </AuthContextProvider>

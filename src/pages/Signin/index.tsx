@@ -11,6 +11,7 @@ import styles from "./Signin.module.scss";
 import { useMutation } from "@tanstack/react-query";
 import { signin } from "@/services/auth";
 import { useAuth } from "@/hooks/useAuth";
+import { toast } from "sonner";
 
 const signinSchema = z.object({
   email: z.string().email("Insira um e-mail válido"),
@@ -38,6 +39,9 @@ const Signin = () => {
     mutationFn: signin,
     onSuccess: (data) => {
       handleAuthenticate(data.access_token);
+    },
+    onError: () => {
+      toast.error("Email ou senha inválidos!");
     },
   });
 

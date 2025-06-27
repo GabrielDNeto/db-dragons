@@ -13,6 +13,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { createDragon, getDragonById, updateDragon } from "@/services/dragons";
 import { APP_ROUTES } from "@/config/router/routes";
 import { useEffect } from "react";
+import { toast } from "sonner";
 
 const dragonSchema = z.object({
   imageUrl: z.string().optional(),
@@ -63,11 +64,23 @@ const CreateOrEditDragon = () => {
 
   const createDragonMutation = useMutation({
     mutationFn: createDragon,
-    onSuccess: () => navigate(APP_ROUTES.private.dragons),
+    onSuccess: () => {
+      toast.success("Dragão cadastrado com sucesso!");
+      navigate(APP_ROUTES.private.dragons);
+    },
+    onError: () => {
+      toast.error("Erro ao cadastrar dragão!");
+    },
   });
 
   const updateDragonMutation = useMutation({
     mutationFn: updateDragon,
+    onSuccess: () => {
+      toast.success("Dragão salvo com sucesso!");
+    },
+    onError: () => {
+      toast.error("Erro ao salvar dragão!");
+    },
   });
 
   const onSubmit = (data: DragonData) => {
