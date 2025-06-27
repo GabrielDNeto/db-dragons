@@ -5,13 +5,15 @@ import Row from "@/components/Dragons/List/Row";
 import { getAllDragons } from "@/services/dragons";
 import { useQuery } from "@tanstack/react-query";
 import { Plus } from "lucide-react";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import styles from "./Dragons.module.scss";
 import { useNavigate } from "react-router";
 import { APP_ROUTES } from "@/config/router/routes";
 import RowSkeleton from "@/components/Dragons/Sekeletons/List/Row";
 
 const Dragons = () => {
+  const [search, setSearch] = useState("");
+
   const navigate = useNavigate();
 
   const { data: dragons, isLoading } = useQuery({
@@ -21,8 +23,11 @@ const Dragons = () => {
   });
 
   const dragonsOrderByAsc = useMemo(
-    () => dragons?.data.sort((a, b) => a.name.localeCompare(b.name)) || [],
-    [dragons],
+    () =>
+      dragons?.data
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .filter((dragon) => dragon.name.includes(search)) || [],
+    [dragons, search],
   );
 
   return (
@@ -35,7 +40,12 @@ const Dragons = () => {
 
         <div className={styles.actions}>
           <div>
-            <Input placeholder="Busque pelo nome..." variant="search" />
+            <Input
+              placeholder="Busque pelo nome..."
+              variant="search"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
           </div>
 
           <Button
@@ -57,11 +67,17 @@ const Dragons = () => {
           <span>Ações</span>
         </div>
         <div className={styles.listContent}>
-          {isLoading
-            ? Array.from({ length: 5 }).map((_, i) => <RowSkeleton key={i} />)
-            : dragonsOrderByAsc.map((dragon) => (
-                <Row key={dragon.id} dragon={dragon} />
-              ))}
+          {isLoading ? (
+            Array.from({ length: 5 }).map((_, i) => <RowSkeleton key={i} />)
+          ) : !!dragonsOrderByAsc.length ? (
+            dragonsOrderByAsc.map((dragon) => (
+              <Row key={dragon.id} dragon={dragon} />
+            ))
+          ) : (
+            <span style={{ textAlign: "center" }}>
+              Nenhum dragão encontrado
+            </span>
+          )}
         </div>
       </div>
     </div>
