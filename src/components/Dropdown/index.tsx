@@ -38,7 +38,7 @@ const Dropdown = ({ children, options }: DropdownProps) => {
       {open && (
         <div className={styles.dropdownMenu}>
           {options.map((opt) => (
-            <button onClick={opt.onClick}>
+            <button key={opt.label} onClick={opt.onClick}>
               {opt.icon}
               {opt.label}
             </button>
