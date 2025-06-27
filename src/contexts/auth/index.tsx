@@ -1,6 +1,4 @@
-import { APP_ROUTES } from "@/config/router/routes";
 import { createContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router";
 
 type AuthContextProps = {
   authStatus: AuthStatus;
