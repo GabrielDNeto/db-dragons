@@ -1,8 +1,11 @@
+import { APP_ROUTES } from "@/config/router/routes";
 import { createContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 
 type AuthContextProps = {
   authStatus: AuthStatus;
   handleAuthenticate: (token: string) => void;
+  handleLogout: () => void;
 };
 
 const AuthContext = createContext<AuthContextProps>({} as AuthContextProps);
@@ -23,6 +26,11 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
     setAuthStatus(AuthStatus.AUTHORIZED);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("@session:token");
+    setAuthStatus(AuthStatus.UNAUTHORIZED);
+  };
+
   useEffect(() => {
     const token = localStorage.getItem("@session:token");
 
@@ -34,7 +42,9 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ authStatus, handleAuthenticate }}>
+    <AuthContext.Provider
+      value={{ authStatus, handleAuthenticate, handleLogout }}
+    >
       {children}
     </AuthContext.Provider>
   );

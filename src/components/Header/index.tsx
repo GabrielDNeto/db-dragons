@@ -3,17 +3,16 @@ import clsx from "clsx";
 import logoIcon from "@/assets/icons/dragon-horizontal.png";
 import { APP_ROUTES } from "@/config/router/routes";
 
-import { Link } from "react-router";
 import { DoorClosed, UserCircle } from "lucide-react";
+import { Link } from "react-router";
 
 import Dropdown from "../Dropdown";
 
+import { useAuth } from "@/hooks/useAuth";
 import styles from "./Header.module.scss";
 
 const Header = () => {
-  const handleLogout = () => {
-    localStorage.removeItem("@session:token");
-  };
+  const { handleLogout } = useAuth();
 
   return (
     <header className={styles.header}>
