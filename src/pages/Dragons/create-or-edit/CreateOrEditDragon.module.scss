@@ -123,4 +123,19 @@
       box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.08);
     }
   }
+
+  @media (max-width: vars.$breakpoint-md) {
+    .form {
+      display: flex;
+      flex-direction: column-reverse;
+
+      & > div {
+        width: 100%;
+      }
+
+      img {
+        width: 100%;
+      }
+    }
+  }
 }
