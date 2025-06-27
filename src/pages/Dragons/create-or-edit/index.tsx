@@ -4,7 +4,7 @@ import Button from "@/components/Button";
 import Input from "@/components/Form/Input";
 import Textarea from "@/components/Form/Textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Check, Loader2, Plus, Trash } from "lucide-react";
+import { ArrowLeft, Check, Loader2, Plus, Trash } from "lucide-react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -14,6 +14,7 @@ import { createDragon, getDragonById, updateDragon } from "@/services/dragons";
 import { APP_ROUTES } from "@/config/router/routes";
 import React, { useEffect } from "react";
 import { toast } from "sonner";
+import dayjs from "dayjs";
 
 const dragonSchema = z.object({
   imageUrl: z.string().optional(),
@@ -122,7 +123,15 @@ const CreateOrEditDragon = () => {
 
       <form className={styles.content} onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.title}>
-          <h1>{id ? "Editar Dragão" : "Adicionar Dragão"}</h1>
+          <div>
+            <Button
+              type="button"
+              onClick={() => navigate(APP_ROUTES.private.dragons)}
+            >
+              <ArrowLeft size={18} />
+            </Button>
+            <h1>{id ? "Editar Dragão" : "Adicionar Dragão"}</h1>
+          </div>
           <Button type="submit">
             {isSubmiting ? (
               <Loader2 size={16} className={styles.loader} />
@@ -158,6 +167,15 @@ const CreateOrEditDragon = () => {
               />
               {errors.type?.message && <span>{errors.type.message}</span>}
             </div>
+
+            {dragonById?.data.createdAt && (
+              <div>
+                <h3>
+                  Criado em{" "}
+                  {dayjs(dragonById?.data.createdAt).format("DD/MM/YYYY")}
+                </h3>
+              </div>
+            )}
 
             <div className={styles.histories}>
               <div className={styles.historiesHeader}>
