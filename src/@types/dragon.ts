@@ -13,3 +13,11 @@ export interface CreateDragonDto {
   type: string;
   histories: string[];
 }
+
+export interface UpdateDragonDto {
+  id: string;
+  name: string;
+  type: string;
+  histories: string[];
+  imageUrl?: string;
+}

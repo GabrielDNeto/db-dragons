@@ -8,9 +8,13 @@ import { Edit, MoreVertical, Trash } from "lucide-react";
 import styles from "./Row.module.scss";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteDragon } from "@/services/dragons";
+import { useNavigate } from "react-router";
+import { APP_ROUTES } from "@/config/router/routes";
 
 const Row = ({ dragon }: { dragon: Dragon }) => {
   const queryClient = useQueryClient();
+
+  const navigate = useNavigate();
 
   const handleHistory = (histories: string | string[]) => {
     if (Array.isArray(histories)) {
@@ -37,7 +41,7 @@ const Row = ({ dragon }: { dragon: Dragon }) => {
     {
       label: "Editar",
       icon: <Edit size={16} />,
-      onClick: () => console.log("edit"),
+      onClick: () => navigate(`${APP_ROUTES.private.dragons}/${dragon.id}`),
     },
     {
       label: "Excluir",

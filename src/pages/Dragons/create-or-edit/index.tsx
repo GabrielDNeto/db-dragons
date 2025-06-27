@@ -9,9 +9,10 @@ import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
 
 import styles from "./CreateOrEditDragon.module.scss";
-import { useMutation } from "@tanstack/react-query";
-import { createDragon } from "@/services/dragons";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { createDragon, getDragonById, updateDragon } from "@/services/dragons";
 import { APP_ROUTES } from "@/config/router/routes";
+import { useEffect } from "react";
 
 const dragonSchema = z.object({
   imageUrl: z.string().optional(),
@@ -33,6 +34,7 @@ const CreateOrEditDragon = () => {
     formState: { errors },
     handleSubmit,
     watch,
+    reset,
   } = useForm<DragonData>({
     resolver: zodResolver(dragonSchema),
     defaultValues: {
@@ -52,25 +54,46 @@ const CreateOrEditDragon = () => {
 
   const navigate = useNavigate();
 
+  const { data: dragonById } = useQuery({
+    queryKey: ["dragon", id],
+    refetchOnWindowFocus: false,
+    queryFn: () => getDragonById(id || ""),
+    enabled: !!id,
+  });
+
   const createDragonMutation = useMutation({
     mutationFn: createDragon,
     onSuccess: () => navigate(APP_ROUTES.private.dragons),
   });
 
   const updateDragonMutation = useMutation({
-    mutationFn: createDragon,
+    mutationFn: updateDragon,
   });
 
   const onSubmit = (data: DragonData) => {
     if (!id) {
       createDragonMutation.mutate(data);
+    } else {
+      updateDragonMutation.mutate({ id, ...data });
     }
   };
 
   const isSubmiting =
     createDragonMutation.isPending || updateDragonMutation.isPending;
 
-  console.log("errors", errors);
+  useEffect(() => {
+    if (id && dragonById) {
+      const { name, type, imageUrl, histories } = dragonById.data;
+      const values = {
+        name,
+        type,
+        imageUrl,
+        histories: Array.isArray(histories) ? histories : [histories],
+      };
+
+      reset(values);
+    }
+  }, [dragonById]);
 
   return (
     <form className={styles.content} onSubmit={handleSubmit(onSubmit)}>
