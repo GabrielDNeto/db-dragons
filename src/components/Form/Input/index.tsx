@@ -31,7 +31,7 @@ const Input = ({
           {...rest}
         />
 
-        <Search size={16} className={styles.icon} />
+        <Search size={16} className={styles.icon} data-testid="search-icon" />
       </div>
     );
   }

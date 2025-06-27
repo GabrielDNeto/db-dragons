@@ -58,7 +58,8 @@ const Row = ({ dragon }: { dragon: Dragon }) => {
     },
   ];
 
-  if (deleteDragonMutation.isPending) return <RowSkeleton />;
+  if (deleteDragonMutation.isPending)
+    return <RowSkeleton />;
 
   return (
     <div className={styles.row}>

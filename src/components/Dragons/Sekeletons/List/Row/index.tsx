@@ -2,7 +2,7 @@ import styles from "./RowSkeleton.module.scss";
 
 const RowSkeleton = () => {
   return (
-    <div className={styles.row}>
+    <div className={styles.row} data-testid="row-skeleton">
       <div className={styles.info}>
         <div className={styles.profile}>
           <div className={styles.skeletonImg} />
