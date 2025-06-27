@@ -155,7 +155,7 @@ const CreateOrEditDragon = () => {
               <div>
                 <label htmlFor="name">Nome do Dragão</label>
                 <Input
-                  placeholder="Nome do Dragão"
+                  placeholder="Ex.: Dracarys"
                   hasError={!!errors.name}
                   {...register("name", { required: true })}
                 />
@@ -167,7 +167,7 @@ const CreateOrEditDragon = () => {
               <div>
                 <label htmlFor="type">Tipo</label>
                 <Input
-                  placeholder="Tipo do Dragão (Ex.: Aquático)"
+                  placeholder="Ex.: Aquático"
                   hasError={!!errors.type}
                   {...register("type", { required: true })}
                 />
