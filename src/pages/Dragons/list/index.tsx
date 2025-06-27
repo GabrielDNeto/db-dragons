@@ -26,7 +26,9 @@ const Dragons = () => {
     () =>
       dragons?.data
         .sort((a, b) => a.name.localeCompare(b.name))
-        .filter((dragon) => dragon.name.includes(search)) || [],
+        .filter((dragon) =>
+          dragon.name.toLowerCase().includes(search.toLowerCase()),
+        ) || [],
     [dragons, search],
   );
 
