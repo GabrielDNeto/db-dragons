@@ -10,6 +10,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteDragon } from "@/services/dragons";
 import { useNavigate } from "react-router";
 import { APP_ROUTES } from "@/config/router/routes";
+import RowSkeleton from "../../Sekeletons/List/Row";
 
 const Row = ({ dragon }: { dragon: Dragon }) => {
   const queryClient = useQueryClient();
@@ -49,6 +50,8 @@ const Row = ({ dragon }: { dragon: Dragon }) => {
       onClick: () => deleteDragonMutation.mutate(dragon.id),
     },
   ];
+
+  if (deleteDragonMutation.isPending) return <RowSkeleton />;
 
   return (
     <div className={styles.row}>
