@@ -1,69 +1,66 @@
-# React + TypeScript + Vite
+# Dragons
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este app foi desenvolvido para fins de teste técnico para [DB](https://db.tec.br/)
 
-Currently, two official plugins are available:
+## 📁 Recursos
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Login/Logout
+- Listagem de Dragões (com filtro por nomes)
+- Cadastro de Dragões
+- Edição de informações de dragão
+- Exclusão de dragão
 
-## Expanding the ESLint configuration
+## ⛏️ Tecnologias Utilizadas
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Este projeto foi desenvolvido com as seguintes tecnologias:
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- [Node 22.1.6](https://nodejs.org/)
+- [React 19](https://reactjs.org/)
+- [SASS (SCSS Modules)](https://sass-lang.com/) - Estilizações modulares
+- [Axios](https://axios-http.com/) - Cliente HTTP para realizar chamadas à api
+- [React Query](https://tanstack.com/query/latest) - Fetch dos dados
+- [ESLint](https://eslint.org/) — Padronização de código
+- [Prettier](https://prettier.io/) — Formatação de código
+- [Vitest](https://vitest.dev/) — Testes unitários (com Testing Library)
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## ⚙️ Instruções
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+1. Clone
+
+```bash
+  git clone https://github.com/GabrielDNeto/db-dragons.git
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2. Acesso à pasta do projeto
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```bash
+cd db-dragons
+```
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+3. Instalando dependências
+
+```bash
+npm install
+```
+
+4. Build
+
+```bash
+npm run build
+```
+
+5. Rodando a aplicação
+
+```bash
+npm run preview
+
+
+# http://localhost:4173/
+```
+
+
+## 🧪 Testes
+
+```bash
+npm run test
 ```
