@@ -12,7 +12,7 @@ import styles from "./CreateOrEditDragon.module.scss";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { createDragon, getDragonById, updateDragon } from "@/services/dragons";
 import { APP_ROUTES } from "@/config/router/routes";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { toast } from "sonner";
 
 const dragonSchema = z.object({
@@ -109,95 +109,107 @@ const CreateOrEditDragon = () => {
   }, [dragonById]);
 
   return (
-    <form className={styles.content} onSubmit={handleSubmit(onSubmit)}>
-      <div className={styles.title}>
-        <h1>{id ? "Editar Dragão" : "Adicionar Dragão"}</h1>
-        <Button type="submit">
-          {isSubmiting ? (
-            <Loader2 size={16} className={styles.loader} />
-          ) : (
-            <Check size={16} />
-          )}
-          {id ? "Salvar" : "Cadastrar"}
-        </Button>
-      </div>
+    <>
+      <React.Fragment>
+        <title>{id ? "Dragons | Editar" : "Dragons | Cadastrar"}</title>
+        <meta
+          name="description"
+          content={
+            id ? "Edite as informações do Dragão" : "Cadastre um novo dragão"
+          }
+        />
+      </React.Fragment>
 
-      <div className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <h3>Informações</h3>
-
-          <div>
-            <Input placeholder="URL Imagem" {...register("imageUrl")} />
-          </div>
-
-          <div>
-            <Input
-              placeholder="Nome do Dragão"
-              hasError={!!errors.name}
-              {...register("name", { required: true })}
-            />
-            {errors.name?.message && <span>{errors.name.message}</span>}
-          </div>
-
-          <div>
-            <Input
-              placeholder="Tipo do Dragão (Ex.: Aquático)"
-              hasError={!!errors.type}
-              {...register("type", { required: true })}
-            />
-            {errors.type?.message && <span>{errors.type.message}</span>}
-          </div>
-
-          <div className={styles.histories}>
-            <div className={styles.historiesHeader}>
-              <h3>Histórias</h3>
-              <Button
-                type="button"
-                onClick={() => append("")}
-                disabled={fields.length >= 3}
-              >
-                <Plus />
-                História
-              </Button>
-            </div>
-            <div className={styles.historiesList}>
-              {fields.map((field, index) => (
-                <div key={field.id} className={styles.historyItem}>
-                  <Button
-                    className={styles.historyRemoveButton}
-                    type="button"
-                    onClick={() => remove(index)}
-                  >
-                    <Trash size={16} />
-                  </Button>
-                  <div>
-                    <Textarea
-                      placeholder={`História #${index + 1}`}
-                      {...register(`histories.${index}`)}
-                    />
-                    {errors.histories?.[index]?.message && (
-                      <span>{errors.histories[index]?.message}</span>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {errors.histories?.root?.message && (
-              <span>{errors.histories?.root?.message}</span>
+      <form className={styles.content} onSubmit={handleSubmit(onSubmit)}>
+        <div className={styles.title}>
+          <h1>{id ? "Editar Dragão" : "Adicionar Dragão"}</h1>
+          <Button type="submit">
+            {isSubmiting ? (
+              <Loader2 size={16} className={styles.loader} />
+            ) : (
+              <Check size={16} />
             )}
-          </div>
+            {id ? "Salvar" : "Cadastrar"}
+          </Button>
         </div>
 
-        {watchImageUrl ? (
-          <img src={watchImageUrl} />
-        ) : (
-          <div className={styles.imgSuspense}>
-            <span>Adicione uma url de imagem</span>
+        <div className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+          <div>
+            <h3>Informações</h3>
+
+            <div>
+              <Input placeholder="URL Imagem" {...register("imageUrl")} />
+            </div>
+
+            <div>
+              <Input
+                placeholder="Nome do Dragão"
+                hasError={!!errors.name}
+                {...register("name", { required: true })}
+              />
+              {errors.name?.message && <span>{errors.name.message}</span>}
+            </div>
+
+            <div>
+              <Input
+                placeholder="Tipo do Dragão (Ex.: Aquático)"
+                hasError={!!errors.type}
+                {...register("type", { required: true })}
+              />
+              {errors.type?.message && <span>{errors.type.message}</span>}
+            </div>
+
+            <div className={styles.histories}>
+              <div className={styles.historiesHeader}>
+                <h3>Histórias</h3>
+                <Button
+                  type="button"
+                  onClick={() => append("")}
+                  disabled={fields.length >= 3}
+                >
+                  <Plus />
+                  História
+                </Button>
+              </div>
+              <div className={styles.historiesList}>
+                {fields.map((field, index) => (
+                  <div key={field.id} className={styles.historyItem}>
+                    <Button
+                      className={styles.historyRemoveButton}
+                      type="button"
+                      onClick={() => remove(index)}
+                    >
+                      <Trash size={16} />
+                    </Button>
+                    <div>
+                      <Textarea
+                        placeholder={`História #${index + 1}`}
+                        {...register(`histories.${index}`)}
+                      />
+                      {errors.histories?.[index]?.message && (
+                        <span>{errors.histories[index]?.message}</span>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {errors.histories?.root?.message && (
+                <span>{errors.histories?.root?.message}</span>
+              )}
+            </div>
           </div>
-        )}
-      </div>
-    </form>
+
+          {watchImageUrl ? (
+            <img src={watchImageUrl} />
+          ) : (
+            <div className={styles.imgSuspense}>
+              <span>Adicione uma url de imagem</span>
+            </div>
+          )}
+        </div>
+      </form>
+    </>
   );
 };
 

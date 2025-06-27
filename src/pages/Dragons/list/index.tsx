@@ -5,7 +5,7 @@ import Row from "@/components/Dragons/List/Row";
 import { getAllDragons } from "@/services/dragons";
 import { useQuery } from "@tanstack/react-query";
 import { Plus } from "lucide-react";
-import { useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import styles from "./Dragons.module.scss";
 import { useNavigate } from "react-router";
 import { APP_ROUTES } from "@/config/router/routes";
@@ -33,56 +33,66 @@ const Dragons = () => {
   );
 
   return (
-    <div className={styles.content}>
-      <div className={styles.pageHeader}>
-        <div className={styles.title}>
-          <h1>Dragões</h1>
-          <span>Explore os dragões mais poderosos do mundo</span>
-        </div>
+    <>
+      <React.Fragment>
+        <title>Dragons | Lista dos Dragões </title>
+        <meta
+          name="description"
+          content="Explore os dragões mais poderosos do mundo"
+        />
+      </React.Fragment>
 
-        <div className={styles.actions}>
-          <div>
-            <Input
-              placeholder="Busque pelo nome..."
-              variant="search"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
+      <div className={styles.content}>
+        <div className={styles.pageHeader}>
+          <div className={styles.title}>
+            <h1>Dragões</h1>
+            <span>Explore os dragões mais poderosos do mundo</span>
           </div>
 
-          <Button
-            onClick={() => navigate(`${APP_ROUTES.private.dragons}/create`)}
-          >
-            <Plus size={18} />
-            Adicionar Dragão
-          </Button>
-        </div>
-      </div>
+          <div className={styles.actions}>
+            <div>
+              <Input
+                placeholder="Busque pelo nome..."
+                variant="search"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+            </div>
 
-      <div className={styles.list}>
-        <div className={styles.listHeader}>
-          <div>
-            <span>Dragão</span>
-            <span>História</span>
-            <span>Criado em</span>
+            <Button
+              onClick={() => navigate(`${APP_ROUTES.private.dragons}/create`)}
+            >
+              <Plus size={18} />
+              Adicionar Dragão
+            </Button>
           </div>
-          <span>Ações</span>
         </div>
-        <div className={styles.listContent}>
-          {isLoading ? (
-            Array.from({ length: 5 }).map((_, i) => <RowSkeleton key={i} />)
-          ) : !!dragonsOrderByAsc.length ? (
-            dragonsOrderByAsc.map((dragon) => (
-              <Row key={dragon.id} dragon={dragon} />
-            ))
-          ) : (
-            <span style={{ textAlign: "center" }}>
-              Nenhum dragão encontrado
-            </span>
-          )}
+
+        <div className={styles.list}>
+          <div className={styles.listHeader}>
+            <div>
+              <span>Dragão</span>
+              <span>História</span>
+              <span>Criado em</span>
+            </div>
+            <span>Ações</span>
+          </div>
+          <div className={styles.listContent}>
+            {isLoading ? (
+              Array.from({ length: 5 }).map((_, i) => <RowSkeleton key={i} />)
+            ) : !!dragonsOrderByAsc.length ? (
+              dragonsOrderByAsc.map((dragon) => (
+                <Row key={dragon.id} dragon={dragon} />
+              ))
+            ) : (
+              <span style={{ textAlign: "center" }}>
+                Nenhum dragão encontrado
+              </span>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

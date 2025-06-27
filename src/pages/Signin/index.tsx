@@ -12,6 +12,7 @@ import { useMutation } from "@tanstack/react-query";
 import { signin } from "@/services/auth";
 import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
+import React from "react";
 
 const signinSchema = z.object({
   email: z.string().email("Insira um e-mail válido"),
@@ -50,40 +51,49 @@ const Signin = () => {
   };
 
   return (
-    <section className={styles.signinContainer}>
-      <div className={styles.formWrapper}>
-        <div className={styles.title}>
-          <h1>Entrar</h1>
-          <span>Acesse e torne-se mestre dos dragões</span>
-        </div>
+    <>
+      <React.Fragment>
+        <title>Dragons | Acessar </title>
+        <meta
+          name="description"
+          content="Acesse e torne-se mestre dos dragões"
+        />
+      </React.Fragment>
+      <section className={styles.signinContainer}>
+        <div className={styles.formWrapper}>
+          <div className={styles.title}>
+            <h1>Entrar</h1>
+            <span>Acesse e torne-se mestre dos dragões</span>
+          </div>
 
-        <form onSubmit={handleSubmit(handleSignin)}>
-          <div>
-            <Input
-              placeholder="Seu e-mail"
-              hasError={!!errors.email}
-              {...register("email", { required: true })}
-            />
-            {errors.email?.message && <span>{errors.email?.message}</span>}
-          </div>
-          <div>
-            <Input
-              variant="password"
-              placeholder="Sua senha"
-              hasError={!!errors.password}
-              {...register("password", { required: true })}
-            />
-            {errors.password?.message && (
-              <span>{errors.password?.message}</span>
-            )}
-          </div>
-          <Button>Fazer Login</Button>
-        </form>
-      </div>
-      <div className={styles.imageWrapper}>
-        <img src={bgDragon} alt="Fire Dragon" />
-      </div>
-    </section>
+          <form onSubmit={handleSubmit(handleSignin)}>
+            <div>
+              <Input
+                placeholder="Seu e-mail"
+                hasError={!!errors.email}
+                {...register("email", { required: true })}
+              />
+              {errors.email?.message && <span>{errors.email?.message}</span>}
+            </div>
+            <div>
+              <Input
+                variant="password"
+                placeholder="Sua senha"
+                hasError={!!errors.password}
+                {...register("password", { required: true })}
+              />
+              {errors.password?.message && (
+                <span>{errors.password?.message}</span>
+              )}
+            </div>
+            <Button>Fazer Login</Button>
+          </form>
+        </div>
+        <div className={styles.imageWrapper}>
+          <img src={bgDragon} alt="Fire Dragon" />
+        </div>
+      </section>
+    </>
   );
 };
 
