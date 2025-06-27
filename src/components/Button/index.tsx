@@ -4,6 +4,7 @@ import styles from "./Button.module.scss";
 const Button = ({
   className,
   disabled,
+  children,
   ...props
 }: React.ButtonHTMLAttributes<HTMLButtonElement>) => {
   return (
@@ -11,7 +12,9 @@ const Button = ({
       className={clsx(styles.button, className)}
       disabled={disabled}
       {...props}
-    ></button>
+    >
+      {children}
+    </button>
   );
 };
 

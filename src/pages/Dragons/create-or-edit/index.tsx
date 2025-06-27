@@ -1,14 +1,17 @@
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 
 import Button from "@/components/Button";
 import Input from "@/components/Form/Input";
 import Textarea from "@/components/Form/Textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Check, Plus, Trash } from "lucide-react";
+import { Check, Loader2, Plus, Trash } from "lucide-react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
 
 import styles from "./CreateOrEditDragon.module.scss";
+import { useMutation } from "@tanstack/react-query";
+import { createDragon } from "@/services/dragons";
+import { APP_ROUTES } from "@/config/router/routes";
 
 const dragonSchema = z.object({
   imageUrl: z.string().optional(),
@@ -47,14 +50,38 @@ const CreateOrEditDragon = () => {
     name: "histories" as never,
   });
 
-  const onSubmit = (data: DragonData) => console.log("data", data);
+  const navigate = useNavigate();
+
+  const createDragonMutation = useMutation({
+    mutationFn: createDragon,
+    onSuccess: () => navigate(APP_ROUTES.private.dragons),
+  });
+
+  const updateDragonMutation = useMutation({
+    mutationFn: createDragon,
+  });
+
+  const onSubmit = (data: DragonData) => {
+    if (!id) {
+      createDragonMutation.mutate(data);
+    }
+  };
+
+  const isSubmiting =
+    createDragonMutation.isPending || updateDragonMutation.isPending;
+
+  console.log("errors", errors);
 
   return (
     <form className={styles.content} onSubmit={handleSubmit(onSubmit)}>
       <div className={styles.title}>
         <h1>{id ? "Editar Dragão" : "Adicionar Dragão"}</h1>
         <Button type="submit">
-          <Check size={16} />
+          {isSubmiting ? (
+            <Loader2 size={16} className={styles.loader} />
+          ) : (
+            <Check size={16} />
+          )}
           {id ? "Salvar" : "Cadastrar"}
         </Button>
       </div>
@@ -70,15 +97,19 @@ const CreateOrEditDragon = () => {
           <div>
             <Input
               placeholder="Nome do Dragão"
+              hasError={!!errors.name}
               {...register("name", { required: true })}
             />
+            {errors.name?.message && <span>{errors.name.message}</span>}
           </div>
 
           <div>
             <Input
               placeholder="Tipo do Dragão (Ex.: Aquático)"
+              hasError={!!errors.type}
               {...register("type", { required: true })}
             />
+            {errors.type?.message && <span>{errors.type.message}</span>}
           </div>
 
           <div className={styles.histories}>
@@ -116,8 +147,8 @@ const CreateOrEditDragon = () => {
               ))}
             </div>
 
-            {errors.histories?.message && (
-              <span>{errors.histories.message}</span>
+            {errors.histories?.root?.message && (
+              <span>{errors.histories?.root?.message}</span>
             )}
           </div>
         </div>
@@ -125,7 +156,9 @@ const CreateOrEditDragon = () => {
         {watchImageUrl ? (
           <img src={watchImageUrl} />
         ) : (
-          <div className={styles.imgSuspense} />
+          <div className={styles.imgSuspense}>
+            <span>Adicione uma url de imagem</span>
+          </div>
         )}
       </div>
     </form>

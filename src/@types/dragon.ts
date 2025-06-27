@@ -4,5 +4,12 @@ export interface Dragon {
   type: string;
   histories: string | string[];
   id: string;
-  imageUrl: string;
+  imageUrl?: string;
+}
+
+export interface CreateDragonDto {
+  imageUrl?: string;
+  name: string;
+  type: string;
+  histories: string[];
 }
